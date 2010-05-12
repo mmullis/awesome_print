@@ -29,7 +29,9 @@ class AwesomePrint
         :symbol     => :cyanish,
         :time       => :greenish,
         :trueclass  => :green
-      }
+      },
+      # priority_fields will be displayed in order first for hashes
+     :priority_fields => [ :id, :created_at, :updated_at]
     }
 
     # Merge custom defaults and let explicit options parameter override them.
@@ -67,7 +69,8 @@ class AwesomePrint
   def awesome_hash(h)
     return "{}" if h == {}
 
-    data = h.keys.inject([]) do |arr, key|
+    # Sort by the keys giving preference to priority_field order
+    data = h.keys.sort_by { |k| k.to_s.downcase }.sort_by {|k| @options[:priority_fields].index(k) || 99999}.inject([]) do |arr, key|
       plain_single_line do
         arr << [ awesome(key), h[key] ]
       end

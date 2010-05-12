@@ -37,7 +37,9 @@ Default options:
       :symbol     => :cyanish,
       :time       => :greenish,
       :trueclass  => :green
-    }
+    },
+    :priority_fields => [ :id, :created_at, :updated_at]
+	
 
 Supported color names:
 

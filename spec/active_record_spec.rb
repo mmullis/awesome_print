@@ -53,10 +53,10 @@ if defined?(::ActiveRecord)
         out.gsub(/0x([a-f\d]+)/, "0x01234567").should == <<-EOS.strip
 #<User:0x01234567> {
             :id => nil,
-          :name => "Diana",
-          :rank => 1,
+    :created_at => Sat Oct 10 12:30:00 UTC 1992,
          :admin => false,
-    :created_at => Sat Oct 10 12:30:00 UTC 1992
+          :name => "Diana",
+          :rank => 1
 }
 EOS
       end
@@ -67,17 +67,17 @@ EOS
 [
     [0] #<User:0x01234567> {
                 :id => nil,
-              :name => "Diana",
-              :rank => 1,
+        :created_at => Sat Oct 10 12:30:00 UTC 1992,
              :admin => false,
-        :created_at => Sat Oct 10 12:30:00 UTC 1992
+              :name => "Diana",
+              :rank => 1
     },
     [1] #<User:0x01234567> {
                 :id => nil,
-              :name => "Laura",
-              :rank => 2,
+        :created_at => Mon May 26 14:15:00 UTC 2003,
              :admin => true,
-        :created_at => Mon May 26 14:15:00 UTC 2003
+              :name => "Laura",
+              :rank => 2
     }
 ]
 EOS
@@ -91,10 +91,10 @@ EOS
         @ap.send(:awesome, User).should == <<-EOS.strip
 class User < ActiveRecord::Base {
             :id => :integer,
-          :name => :string,
-          :rank => :integer,
+    :created_at => :datetime,
          :admin => :boolean,
-    :created_at => :datetime
+          :name => :string,
+          :rank => :integer
 }
         EOS
   
@@ -105,10 +105,10 @@ it "should print the class for non-direct subclasses of AR::Base" do
   @ap.send(:awesome, SubUser).should == <<-EOS.strip
 class SubUser < User {
             :id => :integer,
-          :name => :string,
-          :rank => :integer,
+    :created_at => :datetime,
          :admin => :boolean,
-    :created_at => :datetime
+          :name => :string,
+          :rank => :integer
 }
   EOS
   
