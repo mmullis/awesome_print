@@ -300,6 +300,17 @@ EOS
       @struct.name = "Herman Munster"
       @struct.address = "1313 Mockingbird Lane"
     end
+
+    it "should handle an anonymous struct" do
+      Struct.new(:name,:address).new.ai.should == "{\n    :address\e[0;37m => \e[0m\e[1;31mnil\e[0m,\n       :name\e[0;37m => \e[0m\e[1;31mnil\e[0m\n}"
+
+      foo_class = Struct.new(:name,:address, :num_children)
+      foo = foo_class.new
+      foo.name = "Lily Munster"
+      foo.address = "1313 Mockingbird Lane"
+      foo.num_children = 2
+      foo.ai.should == "{\n         :address\e[0;37m => \e[0m\e[0;33m\"1313 Mockingbird Lane\"\e[0m,\n            :name\e[0;37m => \e[0m\e[0;33m\"Lily Munster\"\e[0m,\n    :num_children\e[0;37m => \e[0m\e[1;34m2\e[0m\n}"
+    end
     
     it "empty struct" do
       Struct.new("EmptyStruct").ai.should ==  "\e[1;33mStruct::EmptyStruct < Struct\e[0m"
